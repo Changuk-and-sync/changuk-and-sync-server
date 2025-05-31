@@ -1,12 +1,13 @@
 package com.baekji.user.domain;
 
-
+import com.baekji.common.enums.UserRole;
+import com.baekji.common.enums.UserStatus;
 import jakarta.persistence.*;
 import lombok.Data;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "User")
+@Table(name = "user")
 @Data
 public class UserEntity {
 
@@ -20,6 +21,14 @@ public class UserEntity {
 
     @Column(name = "user_password", nullable = false, length = 255)
     private String userPassword;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "user_role", nullable = false, length = 255)
+    private UserRole userRole;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "user_status", nullable = false, length = 255)
+    private UserStatus userStatus;
 
     @Column(name = "user_name", nullable = false, length = 255)
     private String userName;
@@ -35,4 +44,19 @@ public class UserEntity {
 
     @Column(name = "user_nickname", length = 10)
     private String userNickname;
+
+    @Column(name = "user_last_logged_in", nullable = false)
+    private LocalDateTime userLastLoggedIn = LocalDateTime.of(2000, 1, 1, 10, 0, 0);
+
+    @Column(name = "user_studied_days", nullable = false)
+    private Long userStudiedDays = 0L;
+
+    @Column(name = "user_total_studys", nullable = false)
+    private Long userTotalStudys = 0L;
+
+    @Column(name = "user_completed_studys", nullable = false)
+    private Long userCompletedStudys = 0L;
+
+    @Column(name = "user_progress_rate", nullable = false)
+    private Double userProgressRate = 0.0;
 }

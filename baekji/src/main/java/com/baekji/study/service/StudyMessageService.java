@@ -57,10 +57,21 @@ public class StudyMessageService {
     // 설명.1.2 학습별로 메시지 리스트 조회
     public List<StudyMessageDTO> getMessagesByStudysId(Long studysId) {
         List<StudyMessage> messages = studyMessageRepository.findAllByStudys_StudysIdOrderBySmCreatedAtAsc(studysId);
+
         return messages.stream()
-                .map(msg -> modelMapper.map(msg, StudyMessageDTO.class))
+                .map(m -> StudyMessageDTO.builder()
+                        .smId(m.getSmId())
+                        .messageType(m.getMessageType())
+                        .smContent(m.getSmContent())
+                        .smSubjectName(m.getSmSubjectName()) // 엔티티에서 바로 꺼냄
+                        .smFileName(m.getSmFileName())
+                        .smFileUrl(m.getSmFileUrl())
+                        .smCreatedAt(m.getSmCreatedAt())
+                        .studysId(m.getStudys() != null ? m.getStudys().getStudysId() : null)
+                        .build())
                 .collect(Collectors.toList());
     }
+
 
     // 설명.2 교안별 메시지 등록
     @Transactional

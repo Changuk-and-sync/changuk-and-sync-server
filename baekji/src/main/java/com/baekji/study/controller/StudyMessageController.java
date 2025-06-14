@@ -25,7 +25,7 @@ public class StudyMessageController {
 
     // 설명.1.2 학습별로 메시지 리스트 조회
     @GetMapping("/studys-id/{studysId}")
-    public ResponseDTO<List<StudyMessageDTO>> getMessagesByStudysId(@PathVariable Long studysId) {
+    public ResponseDTO<List<StudyMessageDTO>> getMessagesByStudysId(@PathVariable("studysId") Long studysId) {
         List<StudyMessageDTO> response = studyMessageService.getMessagesByStudysId(studysId);
         return ResponseDTO.ok(response);
     }
